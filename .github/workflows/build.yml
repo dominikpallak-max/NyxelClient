@@ -12,7 +12,11 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Unzip project
-        run: unzip -q nyxel-client-1.0.3.zip
+        run: |
+          unzip -q nyxel-client.zip -d extracted
+          PROJECT_DIR=$(dirname "$(find extracted -maxdepth 4 \( -name 'build.gradle' -o -name 'build.gradle.kts' \) | head -n1)")
+          echo "Znaleziono projekt w: $PROJECT_DIR"
+          echo "PROJECT_DIR=$PROJECT_DIR" >> "$GITHUB_ENV"
 
       - name: Setup JDK 21
         uses: actions/setup-java@v4
@@ -24,14 +28,13 @@ jobs:
         uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: current
-          build-root-directory: nyxel-client
 
       - name: Build
-        working-directory: nyxel-client
+        working-directory: ${{ env.PROJECT_DIR }}
         run: gradle build --no-daemon
 
       - name: Upload mod jar
         uses: actions/upload-artifact@v4
         with:
           name: nyxel-client
-          path: nyxel-client/build/libs/*.jar
+          path: ${{ env.PROJECT_DIR }}/build/libs/*.jar
