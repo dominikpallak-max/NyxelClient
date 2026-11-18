@@ -2,7 +2,6 @@ name: build
 
 on:
   push:
-  pull_request:
   workflow_dispatch:
 
 jobs:
@@ -11,6 +10,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Unzip project
+        run: unzip -q nyxel-client.zip
 
       - name: Setup JDK 21
         uses: actions/setup-java@v4
@@ -22,13 +24,14 @@ jobs:
         uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: current
+          build-root-directory: nyxel-client
 
       - name: Build
+        working-directory: nyxel-client
         run: gradle build --no-daemon
 
       - name: Upload mod jar
         uses: actions/upload-artifact@v4
         with:
           name: nyxel-client
-          path: build/libs/*.jar
-          
+          path: nyxel-client/build/libs/*.jar
