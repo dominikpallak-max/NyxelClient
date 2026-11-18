@@ -21,11 +21,6 @@ jobs:
           cp -r tmp/assets proj/src/main/resources/
           cp tmp/fabric.mod.json tmp/nyxel.mixins.json proj/src/main/resources/
 
-          RP=proj/src/main/java/dev/nyxel/modules/RenderPlus.java
-          sed -i 's/^import net.minecraft.class_332;/import net.minecraft.class_332;\nimport net.minecraft.class_310;/' $RP
-          sed -i 's/    private RenderPlus() {}/    private RenderPlus() {}\n    private static final class_310 mc = class_310.method_1551();/' $RP
-          sed -i 's/String key = k.method_9539();/String key = net.minecraft.class_7923.field_41175.method_10221(k).method_12832();/' $RP
-
           cat > proj/settings.gradle <<'EOF'
           pluginManagement {
               repositories {
