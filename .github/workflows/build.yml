@@ -22,7 +22,7 @@ jobs:
           echo "Rozpakowuję: $ZIP_FILE"
           unzip -q "$ZIP_FILE" -d extracted
 
-          PROJECT_DIR=$(dirname "$(find extracted -maxdepth 4 \( -name 'build.gradle' -o -name 'build.gradle.kts' \) | head -n1)")
+          PROJECT_DIR=$(dirname "$(find extracted -maxdepth 4 -name 'build.gradle' | head -n1)")
           if [ -z "$PROJECT_DIR" ] || [ "$PROJECT_DIR" = "." ]; then
             echo "Nie znaleziono build.gradle w rozpakowanym archiwum!"
             find extracted -maxdepth 4
