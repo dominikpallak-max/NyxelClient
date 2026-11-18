@@ -31,3 +31,4 @@ jobs:
         with:
           name: nyxel-client
           path: build/libs/*.jar
+          
