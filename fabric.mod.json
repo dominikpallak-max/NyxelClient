@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "id": "nyxel",
+  "version": "${version}",
+  "name": "Nyxel Client",
+  "description": "Nyxel - kompaktowy klient utility/cheat dla Fabric 1.21.11. ClickGUI, moduly, keybindy, configi, StashFinder, FreeLook, Tracers, Search, AutoTrap, KillAura i wiecej.",
+  "authors": ["Nyxel"],
+  "license": "MIT",
+  "icon": "assets/nyxel/icon.png",
+  "environment": "client",
+  "entrypoints": { "client": ["dev.nyxel.NyxelClient"] },
+  "mixins": ["nyxel.mixins.json"],
+  "depends": {
+    "fabricloader": ">=0.18.1",
+    "minecraft": "~1.21.11",
+    "java": ">=21",
+    "fabric-api": "*"
+  }
+}

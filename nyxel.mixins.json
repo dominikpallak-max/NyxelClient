@@ -1,0 +1,8 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "dev.nyxel.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "client": ["EntityMixin", "ClientConnectionMixin", "CameraMixin"],
+  "injectors": { "defaultRequire": 1 }
+}
