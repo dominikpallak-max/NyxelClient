@@ -13,8 +13,21 @@ jobs:
 
       - name: Unzip project
         run: |
-          unzip -q nyxel-client.zip -d extracted
+          ZIP_FILE=$(find . -maxdepth 2 -iname '*.zip' | head -n1)
+          if [ -z "$ZIP_FILE" ]; then
+            echo "Nie znaleziono żadnego pliku .zip w repo!"
+            ls -la
+            exit 1
+          fi
+          echo "Rozpakowuję: $ZIP_FILE"
+          unzip -q "$ZIP_FILE" -d extracted
+
           PROJECT_DIR=$(dirname "$(find extracted -maxdepth 4 \( -name 'build.gradle' -o -name 'build.gradle.kts' \) | head -n1)")
+          if [ -z "$PROJECT_DIR" ] || [ "$PROJECT_DIR" = "." ]; then
+            echo "Nie znaleziono build.gradle w rozpakowanym archiwum!"
+            find extracted -maxdepth 4
+            exit 1
+          fi
           echo "Znaleziono projekt w: $PROJECT_DIR"
           echo "PROJECT_DIR=$PROJECT_DIR" >> "$GITHUB_ENV"
 
